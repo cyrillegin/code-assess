@@ -1,4 +1,4 @@
-Generic Tester
+Code Assess
 =========
 Runs a bunch of linters and tests.
 
@@ -8,7 +8,7 @@ Runs a bunch of linters and tests.
 [![devDependencies Status](https://david-dm.org/cyrillegin/generic-tests/dev-status.svg)](https://david-dm.org/cyrillegin/generic-tests?type=dev)
 
 ## Installation
-`npm install generic-tester`
+`npm install code-assess`
 
 ## Usage
 Add `npm run test` to your tests.

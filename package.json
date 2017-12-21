@@ -1,5 +1,5 @@
 {
-  "name": "generic-tester",
+  "name": "code-assess",
   "version": "0.1.1",
   "description": "Runs a bunch of tests and linters",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cyrillegin/generic-tests.git"
+    "url": "git+https://github.com/cyrillegin/code-assess.git"
   },
   "engines": {
     "node": ">=8.6.0"
@@ -17,13 +17,20 @@
   "author": "Cyrille Gindreau",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cyrillegin/generic-tests/issues"
+    "url": "https://github.com/cyrillegin/code-assess/issues"
   },
-  "homepage": "https://github.com/cyrillegin/generic-tests#readme",
+  "homepage": "https://github.com/cyrillegin/code-assess#readme",
+  "bin": {
+    "code-assess": "./bin/code-assess.js"
+  },
   "devDependencies": {
     "chai": "4.1.2",
     "coveralls": "3.0.0",
     "istanbul": "0.4.5",
-    "mocha": "4.0.1"
+    "mocha": "4.0.1",
+    "eslint": "4.13.1",
+    "htmlhint": "0.9.13",
+    "sass-lint": "1.12.1",
+    "sonarwhal": "0.20.1",
   }
 }
