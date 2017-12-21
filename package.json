@@ -1,19 +1,26 @@
 {
   "name": "generic-tester",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Runs a bunch of tests and linters",
-  "main": "index.js",
+  "main": "./index.js",
   "scripts": {
-    "test": "npm run test"
+    "test": "mocha --reporter spec"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cyrillegin/generic-tests.git"
+  },
+  "engines": {
+    "node": ">=8.6.0"
   },
   "author": "Cyrille Gindreau",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/cyrillegin/generic-tests/issues"
   },
-  "homepage": "https://github.com/cyrillegin/generic-tests#readme"
+  "homepage": "https://github.com/cyrillegin/generic-tests#readme",
+  "devDependencies": {
+    "chai": "4.1.2",
+    "mocha": "4.0.1"
+  }
 }
