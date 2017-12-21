@@ -1,0 +1,19 @@
+{
+  "name": "generic-tester",
+  "version": "1.0.0",
+  "description": "Runs a bunch of tests and linters",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyrillegin/generic-tests.git"
+  },
+  "author": "Cyrille Gindreau",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cyrillegin/generic-tests/issues"
+  },
+  "homepage": "https://github.com/cyrillegin/generic-tests#readme"
+}
