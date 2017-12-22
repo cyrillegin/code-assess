@@ -1,19 +1,18 @@
 'use strict';
 
-var expect = require('chai').expect;
-var numFormatter = require('../index');
+const expect = require('chai').expect;
 
-describe('#numFormatter', function() {
-    it('should run eslint', function() {
+describe('#numFormatter', () => {
+  it('should run eslint', () => {
 
-    });
-    it('should run htmllint', function() {
+  });
+  it('should run htmllint', () => {
 
-    });
-    it('should run scsslint', function() {
+  });
+  it('should run scsslint', () => {
 
-    });
-    it('should run sonarwhal', function() {
+  });
+  it('should run sonarwhal', () => {
 
-    });
+  });
 });
