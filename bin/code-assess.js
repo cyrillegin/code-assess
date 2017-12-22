@@ -5,7 +5,7 @@ const {exec} = require('child_process');
 
 console.log('Running tests.');
 
-function eslint(arg) {
+function eslint(options, arg) {
   console.log('ESLint');
   exec(`./node_modules/.bin/eslint ${arg}`, (err, stdout, stderr) => {
     if (err) {
@@ -16,9 +16,9 @@ function eslint(arg) {
   });
 }
 
-function htmlhint(arg) {
+function htmlhint(options, arg) {
   console.log('HTMLHint');
-  exec(`./node_modules/.bin/htmlhint --config .htmlhintrc ${arg}`, (err, stdout, stderr) => {
+  exec(`./node_modules/.bin/htmlhint --config ${options.rc} ${arg}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from htmlhint');
       console.log(stdout);
@@ -26,7 +26,7 @@ function htmlhint(arg) {
   });
 }
 
-function scsslint(arg) {
+function scsslint(options, arg) {
   console.log('SCSSLint');
   exec(`./node_modules/.bin/sass-lint ${arg} "**/*.scss" -v -q`, (err, stdout, stderr) => {
     if (err) {
@@ -55,38 +55,59 @@ function precheck(arg) {
   }
 }
 
+const testList = [
+  ['eslint', '.eslintrc.json'],
+  ['scsslint', '.sass-lint.yml'],
+  ['htmlhint', '.htmlhintrc'],
+];
+
 function configure() {
   console.log('Checking for configs...');
-  let options = {};
   // Check for code-assess config.
-  const fileExists = fs.existsSync('.code-assessrc.json');
-  if (fileExists) {
-    console.log('is there')
-    const data = fs.readFileSync('.code-assessrc.json');
-    try {
-      options = JSON.parse(data);
-    } catch (err) {
-      console.log('Error reading json:');
-      console.log(err);
-      throw err;
+  const options = JSON.parse(fs.readFileSync(getRC('.code-assessrc.json')));
+  // Fill in any missing options and default them not to run.
+  testList.forEach((test) => {
+    if (! test[0] in options) {
+      // Check if there is an already existing rc file for the test.
+      const fileExists = fs.existsSync(test[1]);
+      // If there is, use it as overrides.
+      if (fileExists) {
+        options[test] = {
+          run: true,
+          rc: getRC(test[1]),
+        };
+      // Else just don't run that test.
+      } else {
+        options[test] = {
+          run: false,
+        };
+      }
+    } else {
+      // If no overrides have been added, use default.
+      if (! 'rc' in options[test[0]] || options[test[0]].rc.length === 0) {
+        options[test[0]].rc = getRC(test[1]);
+      }
     }
-  } else {
-    options = {};
-  }
+  });
+
+  // TODO: handle overrides
   console.log('options are: ');
   console.log(options);
-  // Check for eslint
-  if (! fileExists) {
-    options.eslintre = 'node_modules/code-assess/eslintrc.json';
-  }
+
+  return options;
+}
+
+function getRC(file) {
+  return fs.existsSync(file) ? file : `node_modules/code-assess/${file}`;
 }
 
 function main(arg) {
   precheck(arg);
-  configure();
-  eslint(arg);
-  htmlhint(arg);
-  scsslint(arg);
+  options = configure();
+
+  eslint(options, arg);
+  htmlhint(options, arg);
+  scsslint(options, arg);
   // sonarwhal();
 }
 

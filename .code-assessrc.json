@@ -1,3 +1,17 @@
 {
-  "option": "woot"
+  "eslint": {
+    "run": true,
+    "rc": "",
+    "overrides": []
+  },
+  "scsslint": {
+    "run": true,
+    "rc": "",
+    "overrides": []
+  },
+  "htmlhint": {
+    "run": true,
+    "rc": "",
+    "overrides": []
+  }
 }
