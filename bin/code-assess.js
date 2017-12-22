@@ -55,8 +55,35 @@ function precheck(arg) {
   }
 }
 
+function configure() {
+  console.log('Checking for configs...');
+  let options = {};
+  // Check for code-assess config.
+  const fileExists = fs.existsSync('.code-assessrc.json');
+  if (fileExists) {
+    console.log('is there')
+    const data = fs.readFileSync('.code-assessrc.json');
+    try {
+      options = JSON.parse(data);
+    } catch (err) {
+      console.log('Error reading json:');
+      console.log(err);
+      throw err;
+    }
+  } else {
+    options = {};
+  }
+  console.log('options are: ');
+  console.log(options);
+  // Check for eslint
+  if (! fileExists) {
+    options.eslintre = 'node_modules/code-assess/eslintrc.json';
+  }
+}
+
 function main(arg) {
   precheck(arg);
+  configure();
   eslint(arg);
   htmlhint(arg);
   scsslint(arg);
