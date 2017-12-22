@@ -5,9 +5,9 @@ const {exec} = require('child_process');
 
 console.log('Running tests.');
 
-function eslint() {
+function eslint(arg) {
   console.log('ESLint');
-  exec('./node_modules/.bin/eslint bin', (err, stdout, stderr) => {
+  exec(`./node_modules/.bin/eslint ${arg}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from eslint:');
       console.log(stdout);
@@ -16,9 +16,9 @@ function eslint() {
   });
 }
 
-function htmlhint() {
+function htmlhint(arg) {
   console.log('HTMLHint');
-  exec('./node_modules/.bin/htmlhint --config .htmlhintrc bin', (err, stdout, stderr) => {
+  exec(`./node_modules/.bin/htmlhint --config .htmlhintrc ${arg}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from htmlhint');
       console.log(stdout);
@@ -26,9 +26,9 @@ function htmlhint() {
   });
 }
 
-function scsslint() {
+function scsslint(arg) {
   console.log('SCSSLint');
-  exec('./node_modules/.bin/sass-lint bin "**/*.scss" -v -q', (err, stdout, stderr) => {
+  exec(`./node_modules/.bin/sass-lint ${arg} "**/*.scss" -v -q`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from scsslint');
       console.log(stdout);
@@ -57,9 +57,9 @@ function precheck(arg) {
 
 function main(arg) {
   precheck(arg);
-  eslint();
-  htmlhint();
-  scsslint();
+  eslint(arg);
+  htmlhint(arg);
+  scsslint(arg);
   // sonarwhal();
 }
 
