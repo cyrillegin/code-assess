@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --reporter spec",
     "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
-    "assess": "node bin/code-assess.js"
+    "assess": "babel-node bin/code-assess.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "sass-lint": "1.12.1",
     "sonarwhal": "0.20.1",
     "babel-eslint": "8.0.3",
+    "babel-cli": "6.26.0",
     "eslint-plugin-import": "2.8.0"
   },
   "keywords": [

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-
+'strict';
+const fs = require('fs');
 const {exec} = require('child_process');
 
 console.log('Running tests.');
@@ -45,11 +46,22 @@ function scsslint() {
 //   });
 // }
 
-function main() {
+function precheck(arg) {
+  console.log('Checking: ', arg);
+  const fileExists = fs.existsSync(arg);
+  if (! fileExists) {
+    console.log('File/Folder does not exist, quitting');
+    throw 'File/Folder does not exist, quitting';
+  }
+}
+
+function main(arg) {
+  precheck(arg);
   eslint();
   htmlhint();
   scsslint();
   // sonarwhal();
 }
 
-main();
+const arg = process.argv[2];
+main(arg);
