@@ -18,6 +18,8 @@ function eslint(options, arg) {
 
 function htmlhint(options, arg) {
   console.log('HTMLHint');
+  console.log(options.rc);
+  console.log('done')
   exec(`./node_modules/.bin/htmlhint --config ${options.rc} ${arg}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from htmlhint');
@@ -83,13 +85,13 @@ function configure() {
       const fileExists = fs.existsSync(test[1]);
       // If there is, add its rc file.
       if (fileExists) {
-        options[test] = {
+        options[test[0]] = {
           run: true,
           rc: getRC(test[1]),
         };
       // Else just don't run that test.
       } else {
-        options[test] = {
+        options[test[0]] = {
           run: false,
         };
       }
@@ -122,7 +124,7 @@ function getRC(file) {
 function main(arg) {
   precheck(arg);
   options = configure();
-
+  console.log('Options are:')
   console.log(options);
   if (options.eslint.run) {
     eslint(options, arg);
