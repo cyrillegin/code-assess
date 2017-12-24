@@ -7,7 +7,7 @@ console.log('Running tests.');
 
 function eslint(options, arg) {
   console.log('ESLint');
-  exec(`./node_modules/.bin/eslint ${arg}`, (err, stdout, stderr) => {
+  exec(`./node_modules/.bin/eslint -c ${options.eslint.rc} ${arg}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from eslint:');
       console.log(stdout);
@@ -18,9 +18,7 @@ function eslint(options, arg) {
 
 function htmlhint(options, arg) {
   console.log('HTMLHint');
-  console.log(options.rc);
-  console.log('done')
-  exec(`./node_modules/.bin/htmlhint --config ${options.rc} ${arg}`, (err, stdout, stderr) => {
+  exec(`./node_modules/.bin/htmlhint --config ${options.htmlhint.rc} ${arg}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from htmlhint');
       console.log(stdout);
@@ -30,7 +28,7 @@ function htmlhint(options, arg) {
 
 function scsslint(options, arg) {
   console.log('SCSSLint');
-  exec(`./node_modules/.bin/sass-lint ${arg} "**/*.scss" -v -q`, (err, stdout, stderr) => {
+  exec(`./node_modules/.bin/sass-lint ${arg} "**/*.scss" -v -q --config ${options.scsslint.rc}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from scsslint');
       console.log(stdout);
@@ -113,11 +111,6 @@ function configure() {
 
 // This checks to see if there is a local rc file, if not, use ours.
 function getRC(file) {
-  if (fs.existsSync(file)) {
-    exec('pwd', (err, stdout, stderr) => {
-      console.log(`Using: ${stdout}${file}`);
-    }) ;
-  }
   return fs.existsSync(file) ? file : `node_modules/code-assess/${file}`;
 }
 
