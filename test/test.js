@@ -1,18 +1,17 @@
-'use strict';
+import {assert} from 'chai';
+import './test_eslint';
 
-const expect = require('chai').expect;
-
-describe('#numFormatter', () => {
-  it('should run eslint', () => {
+describe('Running tests', () => {
+  it('should run eslint tests', () => {
+    test_eslint();
+  });
+  it('should run htmllint tests', () => {
 
   });
-  it('should run htmllint', () => {
+  it('should run scsslint tests', () => {
 
   });
-  it('should run scsslint', () => {
-
-  });
-  it('should run sonarwhal', () => {
+  it('should run sonarwhal tests', () => {
 
   });
 });
