@@ -104,13 +104,13 @@ async function main(location) {
     throw err;
   }
   if (options.eslint !== undefined && options.eslint.run) {
-    // await eslint(location);
+    await eslint(location);
   }
   if (options.htmlhint !== undefined && options.htmlhint.run) {
-    // await htmlhint(location);
+    await htmlhint(location);
   }
   if (options.scsslint !== undefined && options.scsslint.run) {
-    // await scsslint(location);
+    await scsslint(location);
   }
   if (options.sonarwhal !== undefined && options.sonarwhal.run) {
     await sonarwhal(options.sonarwhal.uri);

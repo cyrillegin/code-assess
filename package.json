@@ -1,6 +1,6 @@
 {
   "name": "code-assess",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Runs a bunch of tests and linters",
   "main": "bin/code-assess.js",
   "scripts": {
