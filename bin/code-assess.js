@@ -85,6 +85,8 @@ function sonarwhal(location, config) {
     exec(`./node_modules/.bin/sonarwhal ${location}`, (err, stdout, stderr) => {
       if (err) {
         console.log('Errors from Sonarwhal');
+        console.log(err);
+        console.log(stderr);
         console.log(stdout);
       }
       resolve(err);

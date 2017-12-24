@@ -4,22 +4,22 @@ import path from 'path';
 import express from 'express';
 // import * as onHeaders from 'on-headers';
 
-let app;
 let server;
 function startServer(page) {
-  app = express();
+  const app = express();
   app.disable('x-powered-by');
   app.use(express.static(path.join(process.env.PWD, 'test', 'server')));
   app.get('/', (req, res) => res.sendFile(path.join(process.env.PWD, 'test', 'server', page)));
 
-  console.log('app is listening on port 3000');
-  server = app.listen(3000);
+  console.log('app is listening on port 4321');
+  server = app.listen(4321);
 }
 
-function stopServer() {
+async function stopServer() {
   console.log('stopping server');
-  // const server = require('http').createServer(app);
   server.close();
+  // wait for two seconds to allow shutdown.
+  await new Promise((resolve, reject) => setTimeout(() => resolve(), 2000));
 }
 
 export {stopServer, startServer};

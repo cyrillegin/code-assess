@@ -6,15 +6,15 @@ describe('Sonarwhal tests', () => {
 
   it('should run sonarwhal.', async () => {
     startServer('index_success.html');
-    console.log('server started');
-    const err = await sonarwhal('test/testFiles/success');
-    stopServer();
-    // assert.isNull(err);
-    console.log('done')
-  }).timeout(5000);
+    const err = await sonarwhal('localhost:4321');
+    await stopServer();
+    assert.isNull(err);
+  }).timeout(15000);
 
-  // it('should run sonarwhal and throw an error.', async () => {
-  //   const err = await sonarwhal('test/testFiles/fail');
-  //   assert.isNotNull(err.Error);
-  // }).timeout(5000);
+  it('should run sonarwhal and throw an error.', async () => {
+    startServer('index_fail.html');
+    const err = await sonarwhal('localhost:4321');
+    await stopServer();
+    assert.isNotNull(err.Error);
+  }).timeout(15000);
 });
