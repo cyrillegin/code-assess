@@ -111,6 +111,11 @@ function configure() {
 
 // This checks to see if there is a local rc file, if not, use ours.
 function getRC(file) {
+  if (fs.existsSync(file)) {
+    exec('pwd', (err, stdout, stderr) => {
+      console.log(`Using: ${stdout}${file}`);
+    }) ;
+  }
   return fs.existsSync(file) ? file : `node_modules/code-assess/${file}`;
 }
 
