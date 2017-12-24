@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'strict';
 const fs = require('fs');
-const {exec, execSync} = require('child_process');
+const {exec} = require('child_process');
 
 function precheck(location) {
   console.log('Checking: ', location);
@@ -14,6 +14,11 @@ function precheck(location) {
     directory = location;
   }
   return directory;
+}
+
+// This checks to see if there is a local rc file, if not, use ours.
+function getRC(file) {
+  return fs.existsSync(file) ? file : `node_modules/code-assess/${file}`;
 }
 
 function loadConfig(file, config) {
@@ -34,35 +39,42 @@ function loadConfig(file, config) {
 function eslint(location, config) {
   console.log('Running ESLint');
   const rc = loadConfig('.eslintrc.json', config);
-  execSync(`./node_modules/.bin/eslint -c ${rc} ${location}`, (err, stdout, stderr) => {
-    if (err) {
-      console.log('Errors from eslint:');
-      console.log(stdout);
-    }
-    console.log('done');
-    return 'done';
+  return new Promise((resolve, reject) => {
+    exec(`./node_modules/.bin/eslint -c ${rc} ${location}`, (err, stdout, stderr) => {
+      if (err) {
+        console.log('Errors from eslint:');
+        console.log(stdout);
+      }
+      resolve(err);
+    });
   });
 }
 
 function htmlhint(location, config) {
   console.log('Running HTMLHint');
   const rc = loadConfig('.htmlhintrc.json', config);
-  exec(`./node_modules/.bin/htmlhint --config ${rc} ${location}`, (err, stdout, stderr) => {
-    if (err) {
-      console.log('Errors from htmlhint');
-      console.log(stdout);
-    }
+  return new Promise((resolve, reject) => {
+    exec(`./node_modules/.bin/htmlhint --config ${rc} ${location}`, (err, stdout, stderr) => {
+      if (err) {
+        console.log('Errors from htmlhint');
+        console.log(stdout);
+      }
+      resolve(err);
+    });
   });
 }
 
 function scsslint(location, config) {
   console.log('Running SCSSLint');
   const rc = loadConfig('.sass-lint.yml', config);
-  exec(`./node_modules/.bin/sass-lint location "**/*.scss" -v -q --config ${rc}`, (err, stdout, stderr) => {
-    if (err) {
-      console.log('Errors from scsslint');
-      console.log(stdout);
-    }
+  return new Promise((resolve, reject) => {
+    exec(`./node_modules/.bin/sass-lint '${location}/**/*.scss' -v -q --config ${rc}`, (err, stdout, stderr) => {
+      if (err) {
+        console.log('Errors from scsslint');
+        console.log(stdout);
+      }
+      resolve(err);
+    });
   });
 }
 
@@ -76,12 +88,8 @@ function scsslint(location, config) {
 //   });
 // }
 
-// This checks to see if there is a local rc file, if not, use ours.
-function getRC(file) {
-  return fs.existsSync(file) ? file : `node_modules/code-assess/${file}`;
-}
 
-function main(location) {
+async function main(location) {
   precheck(location);
   let options;
   try {
@@ -91,13 +99,13 @@ function main(location) {
     throw err;
   }
   if (options.eslint !== undefined && options.eslint.run) {
-    eslint(location);
+    await eslint(location);
   }
   if (options.htmlhint !== undefined && options.htmlhint.run) {
-    htmlhint(location);
+    await htmlhint(location);
   }
   if (options.scsslint !== undefined && options.scsslint.run) {
-    scsslint(location);
+    await scsslint(location);
   }
   if (options.sonarwhal !== undefined && options.sonarwhal.run) {
     // sonarwhal(location);
@@ -113,6 +121,6 @@ if (require.main === module) {
   (async () => {
     console.log('Running tests.');
     const arg = process.argv[2];
-    main(arg);
+    await main(arg);
   })();
 }

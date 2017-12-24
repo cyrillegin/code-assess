@@ -1,11 +1,11 @@
 {
   "eslint": {
-    "run": true
+    "run": false
   },
   "scsslint": {
     "run": true
   },
   "htmlhint": {
-    "run": true
+    "run": false
   }
 }
