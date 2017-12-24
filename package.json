@@ -1,14 +1,13 @@
 {
   "name": "code-assess",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Runs a bunch of tests and linters",
   "main": "bin/code-assess.js",
   "scripts": {
-    "test": "mocha --reporter spec",
-    "tests": "npm run es_test && npm run html_test && npm run scss_test",
-    "es_test": "mocha --require babel-register test/test_eslint.js",
-    "html_test": "mocha --require babel-register test/test_htmlhint.js",
-    "scss_test": "mocha --require babel-register test/test_scsslint.js",
+    "test": "npm run es_test && npm run html_test && npm run scss_test",
+    "es_test": "mocha --require babel-register --reporter spec test/test_eslint.js",
+    "html_test": "mocha --require babel-register --reporter spec test/test_htmlhint.js",
+    "scss_test": "mocha --require babel-register --reporter spec test/test_scsslint.js",
     "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
     "assess": "babel-node bin/code-assess.js bin"
   },
