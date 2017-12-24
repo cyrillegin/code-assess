@@ -8,7 +8,7 @@
     "es_test": "mocha --require babel-register --reporter spec test/test_eslint.js",
     "html_test": "mocha --require babel-register --reporter spec test/test_htmlhint.js",
     "scss_test": "mocha --require babel-register --reporter spec test/test_scsslint.js",
-    "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
+    "cover": "babel-node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
     "assess": "babel-node bin/code-assess.js bin"
   },
   "repository": {
