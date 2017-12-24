@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'strict';
 const fs = require('fs');
-const {exec} = require('child_process');
+const {exec, execSync} = require('child_process');
 
 function precheck(location) {
   console.log('Checking: ', location);
@@ -16,21 +16,37 @@ function precheck(location) {
   return directory;
 }
 
-function eslint(location) {
-  console.log('ESLint');
-  const rc = getRC('.eslintrc.json');
-  exec(`./node_modules/.bin/eslint -c ${rc} ${location}`, (err, stdout, stderr) => {
+function loadConfig(file, config) {
+  let rc;
+  if (config) {
+    if (fs.existsSync(config)) {
+      rc = config;
+    } else {
+      console.log('Config file not found, using defualt');
+      rc = getRC(file);
+    }
+  } else {
+    rc = getRC(file);
+  }
+  return rc;
+}
+
+function eslint(location, config) {
+  console.log('Running ESLint');
+  const rc = loadConfig('.eslintrc.json', config);
+  execSync(`./node_modules/.bin/eslint -c ${rc} ${location}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from eslint:');
       console.log(stdout);
     }
+    console.log('done');
     return 'done';
   });
 }
 
-function htmlhint(location) {
-  console.log('HTMLHint');
-  const rc = getRC('.htmlhintrc');
+function htmlhint(location, config) {
+  console.log('Running HTMLHint');
+  const rc = loadConfig('.htmlhintrc.json', config);
   exec(`./node_modules/.bin/htmlhint --config ${rc} ${location}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from htmlhint');
@@ -39,9 +55,9 @@ function htmlhint(location) {
   });
 }
 
-function scsslint(location) {
-  console.log('SCSSLint');
-  const rc = getRC('..sass-lint.yml');
+function scsslint(location, config) {
+  console.log('Running SCSSLint');
+  const rc = loadConfig('.sass-lint.yml', config);
   exec(`./node_modules/.bin/sass-lint location "**/*.scss" -v -q --config ${rc}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from scsslint');
@@ -51,7 +67,7 @@ function scsslint(location) {
 }
 
 // function sonarwhal() {
-//   console.log('sonarwhal');
+//   console.log('Running Sonarwhal');
 //   exec('./node_modules/.bin/sonarwhal localhost:5000', (err, stdout, stderr) => {
 //     if (err) {
 //       console.log('Errors from Sonarwhal');
