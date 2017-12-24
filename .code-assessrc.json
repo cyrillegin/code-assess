@@ -1,17 +1,11 @@
 {
   "eslint": {
-    "run": true,
-    "rc": "",
-    "overrides": []
+    "run": true
   },
   "scsslint": {
-    "run": true,
-    "rc": "",
-    "overrides": []
+    "run": true
   },
   "htmlhint": {
-    "run": true,
-    "rc": "",
-    "overrides": []
+    "run": true
   }
 }
