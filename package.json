@@ -5,9 +5,10 @@
   "main": "bin/code-assess.js",
   "scripts": {
     "test": "mocha --reporter spec",
-    "tests": "mocha --require babel-register test/test.js",
+    "tests": "npm run es_test",
+    "es_test": "mocha --require babel-register test/test_eslint.js",
     "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
-    "assess": "babel-node bin/code-assess.js"
+    "assess": "babel-node bin/code-assess.js bin"
   },
   "repository": {
     "type": "git",

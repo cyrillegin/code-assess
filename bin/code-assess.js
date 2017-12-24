@@ -3,11 +3,23 @@
 const fs = require('fs');
 const {exec} = require('child_process');
 
-console.log('Running tests.');
+function precheck(location) {
+  console.log('Checking: ', location);
+  let directory = '';
+  const fileExists = fs.existsSync(location);
+  if (! fileExists) {
+    console.log('File/Folder does not exist, using current directory');
+    directory = '.';
+  } else {
+    directory = location;
+  }
+  return directory;
+}
 
-function eslint(options, arg) {
+function eslint(location) {
   console.log('ESLint');
-  exec(`./node_modules/.bin/eslint -c ${options.eslint.rc} ${arg}`, (err, stdout, stderr) => {
+  const rc = getRC('.eslintrc.json');
+  exec(`./node_modules/.bin/eslint -c ${rc} ${location}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from eslint:');
       console.log(stdout);
@@ -16,9 +28,10 @@ function eslint(options, arg) {
   });
 }
 
-function htmlhint(options, arg) {
+function htmlhint(location) {
   console.log('HTMLHint');
-  exec(`./node_modules/.bin/htmlhint --config ${options.htmlhint.rc} ${arg}`, (err, stdout, stderr) => {
+  const rc = getRC('.htmlhintrc');
+  exec(`./node_modules/.bin/htmlhint --config ${rc} ${location}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from htmlhint');
       console.log(stdout);
@@ -26,9 +39,10 @@ function htmlhint(options, arg) {
   });
 }
 
-function scsslint(options, arg) {
+function scsslint(location) {
   console.log('SCSSLint');
-  exec(`./node_modules/.bin/sass-lint ${arg} "**/*.scss" -v -q --config ${options.scsslint.rc}`, (err, stdout, stderr) => {
+  const rc = getRC('..sass-lint.yml');
+  exec(`./node_modules/.bin/sass-lint location "**/*.scss" -v -q --config ${rc}`, (err, stdout, stderr) => {
     if (err) {
       console.log('Errors from scsslint');
       console.log(stdout);
@@ -46,92 +60,43 @@ function scsslint(options, arg) {
 //   });
 // }
 
-function precheck(arg) {
-  console.log('Checking: ', arg);
-  let directory = '';
-  const fileExists = fs.existsSync(arg);
-  if (! fileExists) {
-    console.log('File/Folder does not exist, using current directory');
-    directory = '.';
-  } else {
-    directory = arg;
-  }
-  return directory;
-}
-
-const testList = [
-  ['eslint', '.eslintrc.json'],
-  ['scsslint', '.sass-lint.yml'],
-  ['htmlhint', '.htmlhintrc'],
-  ['sonarwhal', '.sonarwhalrc'],
-];
-
-function configure() {
-  console.log('Checking for configs...');
-  // Check for code-assess config.
-  let options;
-  try {
-    options = JSON.parse(fs.readFileSync(getRC('.code-assessrc.json')));
-  } catch (err) {
-    console.log('Error reading code-assesrc file.');
-    throw err;
-  }
-  // Fill in any missing options and default them not to run.
-  testList.forEach((test) => {
-    if (options[test[0]] !== undefined) {
-      // Check if there is an already existing rc file for the test.
-      const fileExists = fs.existsSync(test[1]);
-      // If there is, add its rc file.
-      if (fileExists) {
-        options[test[0]] = {
-          run: true,
-          rc: getRC(test[1]),
-        };
-      // Else just don't run that test.
-      } else {
-        options[test[0]] = {
-          run: false,
-        };
-      }
-    } else {
-      if (options[test[0]] === undefined) {
-        options[test[0]] = {
-          run: false,
-        };
-      }
-      // If no overrides have been added, use default.
-      if (options[test[0]].rc === undefined || options[test[0]].rc.length === 0) {
-        options[test[0]].rc = getRC(test[1]);
-      }
-    }
-  });
-
-  return options;
-}
-
 // This checks to see if there is a local rc file, if not, use ours.
 function getRC(file) {
   return fs.existsSync(file) ? file : `node_modules/code-assess/${file}`;
 }
 
-function main(arg) {
-  precheck(arg);
-  options = configure();
-  console.log('Options are:')
-  console.log(options);
-  if (options.eslint.run) {
-    eslint(options, arg);
+function main(location) {
+  precheck(location);
+  let options;
+  try {
+    options = JSON.parse(fs.readFileSync(getRC('.code-assessrc.json')));
+  } catch (err) {
+    console.log('Error parsing code-assessrc.json file.');
+    throw err;
   }
-  if (options.htmlhint.run) {
-    htmlhint(options, arg);
+  if (options.eslint !== undefined && options.eslint.run) {
+    eslint(location);
   }
-  if (options.scsslint.run) {
-    scsslint(options, arg);
+  if (options.htmlhint !== undefined && options.htmlhint.run) {
+    htmlhint(location);
   }
-  if (options.sonarwhal.run) {
-    // sonarwhal();
+  if (options.scsslint !== undefined && options.scsslint.run) {
+    scsslint(location);
+  }
+  if (options.sonarwhal !== undefined && options.sonarwhal.run) {
+    // sonarwhal(location);
   }
 }
 
-const arg = process.argv[2];
-main(arg);
+
+export default main;
+export {eslint, htmlhint, scsslint};
+
+
+if (require.main === module) {
+  (async () => {
+    console.log('Running tests.');
+    const arg = process.argv[2];
+    main(arg);
+  })();
+}
