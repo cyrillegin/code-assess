@@ -15,3 +15,13 @@ Add `npm run test` to your tests.
 
 ## Tests
 `npm test`
+
+
+## Tests:
+ESLint
+
+HTMLhint
+
+SCSSlint
+
+Sonarwhal

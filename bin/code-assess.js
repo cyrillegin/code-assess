@@ -78,16 +78,19 @@ function scsslint(location, config) {
   });
 }
 
-// function sonarwhal() {
-//   console.log('Running Sonarwhal');
-//   exec('./node_modules/.bin/sonarwhal localhost:5000', (err, stdout, stderr) => {
-//     if (err) {
-//       console.log('Errors from Sonarwhal');
-//       console.log(stdout);
-//     }
-//   });
-// }
-
+function sonarwhal(location, config) {
+  console.log('Running Sonarwhal');
+  // const rc = loadConfig('.sonarwhalrc', config);
+  return new Promise((resolve, reject) => {
+    exec(`./node_modules/.bin/sonarwhal ${location}`, (err, stdout, stderr) => {
+      if (err) {
+        console.log('Errors from Sonarwhal');
+        console.log(stdout);
+      }
+      resolve(err);
+    });
+  });
+}
 
 async function main(location) {
   precheck(location);
@@ -99,22 +102,22 @@ async function main(location) {
     throw err;
   }
   if (options.eslint !== undefined && options.eslint.run) {
-    await eslint(location);
+    // await eslint(location);
   }
   if (options.htmlhint !== undefined && options.htmlhint.run) {
-    await htmlhint(location);
+    // await htmlhint(location);
   }
   if (options.scsslint !== undefined && options.scsslint.run) {
-    await scsslint(location);
+    // await scsslint(location);
   }
   if (options.sonarwhal !== undefined && options.sonarwhal.run) {
-    // sonarwhal(location);
+    await sonarwhal(options.sonarwhal.uri);
   }
 }
 
 
 export default main;
-export {eslint, htmlhint, scsslint};
+export {eslint, htmlhint, scsslint, sonarwhal};
 
 
 if (require.main === module) {

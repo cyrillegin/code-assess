@@ -7,5 +7,9 @@
   },
   "htmlhint": {
     "run": false
+  },
+  "sonarwhal": {
+    "run": true,
+    "uri": "localhost:3000"
   }
 }

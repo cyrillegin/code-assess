@@ -8,6 +8,8 @@
     "es_test": "mocha --require babel-register --reporter spec test/test_eslint.js",
     "html_test": "mocha --require babel-register --reporter spec test/test_htmlhint.js",
     "scss_test": "mocha --require babel-register --reporter spec test/test_scsslint.js",
+    "sonarwhal_test": "mocha --require babel-register --reporter spec test/test_sonarwhal.js",
+    "testServer": "babel-node test/server/server.js",
     "cover": "babel-node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
     "assess": "babel-node bin/code-assess.js bin"
   },
@@ -36,6 +38,7 @@
     "coveralls": "3.0.0",
     "eslint": "4.14.0",
     "eslint-plugin-import": "2.8.0",
+    "express": "4.16.2",
     "htmlhint": "0.9.13",
     "istanbul": "0.4.5",
     "mocha": "4.0.1",
@@ -49,5 +52,7 @@
     "htmlhint",
     "sonarwhal"
   ],
-  "dependencies": {}
+  "dependencies": {
+  
+  }
 }
