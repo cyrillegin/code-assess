@@ -85,7 +85,7 @@ function scsslint(location, config) {
   });
 }
 
-function sonarwhal(location, config) {
+function sonarwhal(location) {
   console.log('Running Sonarwhal');
   // const rc = loadConfig('.sonarwhalrc', config);
   const test = loadTest('sonarwhal');
@@ -98,6 +98,40 @@ function sonarwhal(location, config) {
         console.log(stdout);
       }
       resolve(err);
+    });
+  });
+}
+
+async function flake8(location) {
+  console.log('Running flake8');
+  const result = await checkForDependency('flake8');
+  if (result === '') {
+    console.log('You do not currently have flake8 installed. Please install it using pip install flake8');
+    throw new Error();
+  }
+  return new Promise((resolve, reject) => {
+    exec(`flake8  --statistics --count ${location}/`, (err, stdout, stderr) => {
+      if (err) {
+        console.log('Errors from flake 8');
+        console.log(err);
+        console.log(stderr);
+        console.log(stdout);
+      }
+      resolve(err);
+    });
+  });
+}
+
+function checkForDependency(dependency) {
+  return new Promise((resolve, reject) => {
+    exec(`which ${dependency}`, (err, stdout, stderr) => {
+      if (err) {
+        console.log('Errors from dependency check:');
+        console.log(err);
+        console.log(stderr);
+        console.log(stdout);
+      }
+      resolve(stdout);
     });
   });
 }
@@ -122,6 +156,9 @@ async function main(location) {
   }
   if (options.sonarwhal !== undefined && options.sonarwhal.run) {
     await sonarwhal(options.sonarwhal.uri);
+  }
+  if (options.flake8 !== undefined && options.flake8.run) {
+    await flake8(location);
   }
 }
 

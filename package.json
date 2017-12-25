@@ -11,7 +11,7 @@
     "sonarwhal_test": "mocha --require babel-register --reporter spec test/test_sonarwhal.js",
     "testServer": "babel-node test/server/server.js",
     "cover": "babel-node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
-    "assess": "babel-node src/code-assess.js bin",
+    "assess": "babel-node src/code-assess.js src",
     "build": "babel src --out-dir lib",
     "prepublishOnly": "npm run build"
   },
