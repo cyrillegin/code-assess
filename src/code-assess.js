@@ -164,7 +164,7 @@ async function main(location) {
 
 
 export default main;
-export {eslint, htmlhint, scsslint, sonarwhal};
+export {eslint, htmlhint, scsslint, sonarwhal, flake8};
 
 
 if (require.main === module) {
