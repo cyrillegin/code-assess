@@ -36,11 +36,16 @@ function loadConfig(file, config) {
   return rc;
 }
 
+function loadTest(test) {
+  return fs.existsSync(`node_modules/.bin/${test}`) ? `node_modules/.bin/${test}` : `node_modules/code-assess/node_modules/.bin/${test}`;
+}
+
 function eslint(location, config) {
   console.log('Running ESLint');
   const rc = loadConfig('.eslintrc.json', config);
+  const test = loadTest('eslint');
   return new Promise((resolve, reject) => {
-    exec(`./node_modules/.bin/eslint -c ${rc} ${location}`, (err, stdout, stderr) => {
+    exec(`./${test} -c ${rc} ${location}`, (err, stdout, stderr) => {
       if (err) {
         console.log('Errors from eslint:');
         console.log(stdout);
@@ -53,8 +58,9 @@ function eslint(location, config) {
 function htmlhint(location, config) {
   console.log('Running HTMLHint');
   const rc = loadConfig('.htmlhintrc.json', config);
+  const test = loadTest('htmlhint');
   return new Promise((resolve, reject) => {
-    exec(`./node_modules/.bin/htmlhint --config ${rc} ${location}`, (err, stdout, stderr) => {
+    exec(`./${test} --config ${rc} ${location}`, (err, stdout, stderr) => {
       if (err) {
         console.log('Errors from htmlhint');
         console.log(stdout);
@@ -67,8 +73,9 @@ function htmlhint(location, config) {
 function scsslint(location, config) {
   console.log('Running SCSSLint');
   const rc = loadConfig('.sass-lint.yml', config);
+  const test = loadTest('sass-lint');
   return new Promise((resolve, reject) => {
-    exec(`./node_modules/.bin/sass-lint '${location}/**/*.scss' -v -q --config ${rc}`, (err, stdout, stderr) => {
+    exec(`./${test} '${location}/**/*.scss' -v -q --config ${rc}`, (err, stdout, stderr) => {
       if (err) {
         console.log('Errors from scsslint');
         console.log(stdout);
@@ -81,8 +88,9 @@ function scsslint(location, config) {
 function sonarwhal(location, config) {
   console.log('Running Sonarwhal');
   // const rc = loadConfig('.sonarwhalrc', config);
+  const test = loadTest('sonarwhal');
   return new Promise((resolve, reject) => {
-    exec(`./node_modules/.bin/sonarwhal ${location}`, (err, stdout, stderr) => {
+    exec(`./${test} ${location}`, (err, stdout, stderr) => {
       if (err) {
         console.log('Errors from Sonarwhal');
         console.log(err);
