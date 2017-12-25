@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {htmlhint} from './../bin/code-assess';
+import {htmlhint} from './../src/code-assess';
 
 describe('HtmlHint tests', () => {
 

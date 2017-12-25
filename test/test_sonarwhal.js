@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {sonarwhal} from './../bin/code-assess';
+import {sonarwhal} from './../src/code-assess';
 import {startServer, stopServer} from './server/server';
 
 describe('Sonarwhal tests', () => {

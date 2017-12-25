@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {scsslint} from './../bin/code-assess';
+import {scsslint} from './../src/code-assess';
 
 describe('ScssLint tests', () => {
 

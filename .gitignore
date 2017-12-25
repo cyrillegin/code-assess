@@ -2,4 +2,3 @@ node_modules/
 coverage/
 *.pid
 .DS_Store
-lib/

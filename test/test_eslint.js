@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {eslint} from './../bin/code-assess';
+import {eslint} from './../src/code-assess';
 
 describe('EsLint tests', () => {
 
