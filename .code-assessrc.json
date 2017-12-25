@@ -1,12 +1,12 @@
 {
   "eslint": {
-    "run": false
+    "run": true
   },
   "scsslint": {
     "run": true
   },
   "htmlhint": {
-    "run": false
+    "run": true
   },
   "sonarwhal": {
     "run": true,

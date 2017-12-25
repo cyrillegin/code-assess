@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'strict';
-const fs = require('fs');
-const {exec} = require('child_process');
+import fs from 'fs';
+import {exec} from 'child_process';
 
 function precheck(location) {
   console.log('Checking: ', location);

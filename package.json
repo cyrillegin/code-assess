@@ -1,6 +1,6 @@
 {
   "name": "code-assess",
-  "version": "0.1.9",
+  "version": "0.1.12",
   "description": "Runs a bunch of tests and linters",
   "main": "bin/code-assess.js",
   "scripts": {
@@ -46,6 +46,7 @@
     "sonarwhal": "0.20.1"
   },
   "keywords": [
+    "test",
     "lint",
     "eslint",
     "scsslint",
