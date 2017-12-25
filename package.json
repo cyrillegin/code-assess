@@ -2,7 +2,7 @@
   "name": "code-assess",
   "version": "0.1.12",
   "description": "Runs a bunch of tests and linters",
-  "main": "bin/code-assess.js",
+  "main": "src/code-assess.js",
   "scripts": {
     "test": "npm run es_test && npm run html_test && npm run scss_test",
     "es_test": "mocha --require babel-register --reporter spec test/test_eslint.js",
@@ -11,7 +11,9 @@
     "sonarwhal_test": "mocha --require babel-register --reporter spec test/test_sonarwhal.js",
     "testServer": "babel-node test/server/server.js",
     "cover": "babel-node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
-    "assess": "babel-node bin/code-assess.js bin"
+    "assess": "babel-node src/code-assess.js bin",
+    "build": "babel src --out-dir lib",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -27,12 +29,13 @@
   },
   "homepage": "https://github.com/cyrillegin/code-assess#readme",
   "bin": {
-    "code-assess": "./bin/code-assess.js"
+    "code-assess": "./lib/code-assess.js"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
-    "babel-eslint": "8.1.0",
+    "babel-eslint": "8.1.1",
     "babel-preset-es2015": "6.24.1",
+    "babel-preset-env": "1.6.1",
     "babel-register": "6.26.0",
     "chai": "4.1.2",
     "coveralls": "3.0.0",
@@ -53,7 +56,5 @@
     "htmlhint",
     "sonarwhal"
   ],
-  "dependencies": {
-  
-  }
+  "dependencies": {}
 }
