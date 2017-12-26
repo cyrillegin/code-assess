@@ -5,14 +5,15 @@ import express from 'express';
 // import * as onHeaders from 'on-headers';
 
 let server;
-function startServer(page) {
+function startServer(page, port) {
   const app = express();
   app.disable('x-powered-by');
   app.use(express.static(path.join(process.env.PWD, 'test', 'server')));
+
   app.get('/', (req, res) => res.sendFile(path.join(process.env.PWD, 'test', 'server', page)));
 
-  console.log('app is listening on port 4321');
-  server = app.listen(4321);
+  console.log(`app is listening on port ${port}`);
+  server = app.listen(port);
 }
 
 async function stopServer() {
