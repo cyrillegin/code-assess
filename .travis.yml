@@ -8,7 +8,7 @@ python:
 
 install:
   - npm install
-  - pip install flake8
+  - pip install --user flake8
 
 
 script:
