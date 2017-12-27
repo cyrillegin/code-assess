@@ -13,6 +13,9 @@
     "uri": "localhost:4321"
   },
   "flake8": {
+    "run": false
+  },
+  "outdated": {
     "run": true
   }
 }

@@ -53,7 +53,7 @@
   ],
   "dependencies": {
     "htmlhint": "0.9.13",
-    "babel-eslint": "8.1.1",
+    "babel-eslint": "8.1.2",
     "eslint-plugin-import": "2.8.0",
     "sass-lint": "1.12.1",
     "sonarwhal": "0.20.1",

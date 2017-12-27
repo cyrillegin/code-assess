@@ -40,6 +40,20 @@ function loadTest(test) {
   return fs.existsSync(`node_modules/.bin/${test}`) ? `node_modules/.bin/${test}` : `node_modules/code-assess/node_modules/.bin/${test}`;
 }
 
+function checkForDependency(dependency) {
+  return new Promise((resolve, reject) => {
+    exec(`which ${dependency}`, (err, stdout, stderr) => {
+      if (err) {
+        console.log('Errors from dependency check:');
+        console.log(err);
+        console.log(stderr);
+        console.log(stdout);
+      }
+      resolve(stdout);
+    });
+  });
+}
+
 function eslint(location, config) {
   console.log('Running ESLint');
   const rc = loadConfig('.eslintrc.json', config);
@@ -122,16 +136,17 @@ async function flake8(location) {
   });
 }
 
-function checkForDependency(dependency) {
+function checkOutdated() {
+  console.log('Checking for outdated dependencies.');
   return new Promise((resolve, reject) => {
-    exec(`which ${dependency}`, (err, stdout, stderr) => {
+    exec('npm outdated', (err, stdout, stderr) => {
       if (err) {
-        console.log('Errors from dependency check:');
-        console.log(err);
-        console.log(stderr);
+        console.log('Outdated packages:');
         console.log(stdout);
+      } else {
+        console.log('Dependencies are up to date!');
       }
-      resolve(stdout);
+      resolve(err);
     });
   });
 }
@@ -160,8 +175,10 @@ async function main(location) {
   if (options.flake8 !== undefined && options.flake8.run) {
     await flake8(location);
   }
+  if (options.outdated !== undefined && options.outdated.run) {
+    await checkOutdated();
+  }
 }
-
 
 export default main;
 export {eslint, htmlhint, scsslint, sonarwhal, flake8};
