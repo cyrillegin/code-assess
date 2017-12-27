@@ -39,11 +39,11 @@ Writing a config: https://github.com/yaniswang/HTMLHint/wiki/Usage#about-htmlhin
 #### Sonarwhal
 Website: https://sonarwhal.com/  
 Writing a config: https://sonarwhal.com/docs/user-guide/concepts/rules/  
-*Note: Within the config file, a uri parameter is required. This uri needs to point to the entrypoint of your website.
+*Note: Within the config file, a uri array is required. Each element of the uri is a different 'site' that will be checked by sonarwhal.
 Example:  
 `{
   "sonarwhal": {
     "run": true,
-    "uri": "localhost:5000"
+    "uri":["localhost:5000", "localhost:8000"]
   }
 }`
