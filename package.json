@@ -14,7 +14,7 @@
     "cover": "babel-node node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- -R spec test/*",
     "assess": "babel-node src/code-assess.js src",
     "build": "babel src --out-dir lib",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run test && npm run build"
   },
   "repository": {
     "type": "git",
