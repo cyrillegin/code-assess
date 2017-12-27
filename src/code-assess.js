@@ -170,7 +170,9 @@ async function main(location) {
     await scsslint(location);
   }
   if (options.sonarwhal !== undefined && options.sonarwhal.run) {
-    await sonarwhal(options.sonarwhal.uri);
+    for (let index = 0; index < options.sonarwhal.uri.length; index ++) {
+      await sonarwhal(options.sonarwhal.uri[index]);
+    }
   }
   if (options.flake8 !== undefined && options.flake8.run) {
     await flake8(location);
