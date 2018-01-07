@@ -89,11 +89,12 @@ function scsslint(location, config) {
   const rc = loadConfig('.sass-lint.yml', config);
   const test = loadTest('sass-lint');
   return new Promise((resolve, reject) => {
-    exec(`./${test} '${location}/**/*.scss' -v -q --config ${rc}`, (err, stdout, stderr) => {
+    exec(`./${test} '${location}/**/*.scss' -v --config ${rc}`, (err, stdout, stderr) => {
       if (err) {
         console.log('Errors from scsslint');
         console.log(stdout);
       }
+      console.log(stdout);
       resolve(err);
     });
   });

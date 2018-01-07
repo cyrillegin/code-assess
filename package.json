@@ -41,7 +41,7 @@
     "coveralls": "3.0.0",
     "express": "4.16.2",
     "istanbul": "0.4.5",
-    "mocha": "4.0.1"
+    "mocha": "4.1.0"
   },
   "keywords": [
     "test",
@@ -56,7 +56,7 @@
     "babel-eslint": "8.1.2",
     "eslint-plugin-import": "2.8.0",
     "sass-lint": "1.12.1",
-    "sonarwhal": "0.20.1",
-    "eslint": "4.14.0"
+    "sonarwhal": "0.21.0",
+    "eslint": "4.15.0"
   }
 }
