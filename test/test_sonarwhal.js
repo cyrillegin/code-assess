@@ -5,6 +5,7 @@ import {startServer, stopServer} from './server/server';
 describe('Sonarwhal tests', () => {
 
   it('should run sonarwhal.', async () => {
+    console.log(process.env)
     if (process.env.CI === true) {
       console.log('skipping sonarwhal test in travis');
       return;
