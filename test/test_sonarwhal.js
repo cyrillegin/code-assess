@@ -5,8 +5,7 @@ import {startServer, stopServer} from './server/server';
 describe('Sonarwhal tests', () => {
 
   it('should run sonarwhal.', async () => {
-    console.log(process.env)
-    if (process.env.CI === true) {
+    if (process.env.CI === 'true') {
       console.log('skipping sonarwhal test in travis');
       return;
     }
@@ -17,7 +16,7 @@ describe('Sonarwhal tests', () => {
   }).timeout(15000);
 
   it('should run sonarwhal and throw an error.', async () => {
-    if (process.env.CI === true) {
+    if (process.env.CI === 'true') {
       console.log('skipping sonarwhal test in travis');
       return;
     }
