@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import {assert} from 'chai';
 import {sonarwhal} from './../src/code-assess';
 import {startServer, stopServer} from './server/server';
@@ -9,12 +10,12 @@ describe('Sonarwhal tests', () => {
     const err = await sonarwhal('localhost:4444');
     await stopServer();
     assert.isNull(err);
-  }).timeout(15000);
+  }).timeout(150000);
 
   it('should run sonarwhal and throw an error.', async () => {
     startServer('index_fail.html', 4443);
     const err = await sonarwhal('localhost:4443');
     await stopServer();
     assert.isNotNull(err.Error);
-  }).timeout(15000);
+  }).timeout(150000);
 });

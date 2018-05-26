@@ -34,14 +34,14 @@
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
-    "babel-preset-es2015": "6.24.1",
-    "babel-preset-env": "1.6.1",
+    "babel-core": "6.26.3",
+    "babel-preset-env": "1.7.0",
     "babel-register": "6.26.0",
     "chai": "4.1.2",
     "coveralls": "3.0.0",
     "express": "4.16.2",
     "istanbul": "0.4.5",
-    "mocha": "4.1.0"
+    "mocha": "5.2.0"
   },
   "keywords": [
     "test",
@@ -52,11 +52,38 @@
     "sonarwhal"
   ],
   "dependencies": {
-    "htmlhint": "0.9.13",
+    "@sonarwhal/formatter-stylish": "2.0.3",
+    "@sonarwhal/rule-amp-validator": "3.0.2",
+    "@sonarwhal/rule-apple-touch-icons": "3.0.2",
+    "@sonarwhal/rule-axe": "4.0.2",
+    "@sonarwhal/rule-content-type": "3.0.4",
+    "@sonarwhal/rule-disown-opener": "3.0.3",
+    "@sonarwhal/rule-highest-available-document-mode": "3.0.4",
+    "@sonarwhal/rule-html-checker": "4.0.0",
+    "@sonarwhal/rule-http-cache": "3.1.1",
+    "@sonarwhal/rule-image-optimization-cloudinary": "3.0.2",
+    "@sonarwhal/rule-manifest-app-name": "4.0.2",
+    "@sonarwhal/rule-manifest-exists": "4.0.1",
+    "@sonarwhal/rule-manifest-file-extension": "4.0.1",
+    "@sonarwhal/rule-manifest-is-valid": "5.0.1",
+    "@sonarwhal/rule-meta-charset-utf-8": "3.0.3",
+    "@sonarwhal/rule-meta-viewport": "3.0.2",
+    "@sonarwhal/rule-no-disallowed-headers": "3.0.3",
+    "@sonarwhal/rule-no-friendly-error-pages": "3.0.2",
+    "@sonarwhal/rule-no-html-only-headers": "3.0.4",
+    "@sonarwhal/rule-no-http-redirects": "3.0.2",
+    "@sonarwhal/rule-no-protocol-relative-urls": "3.0.2",
+    "@sonarwhal/rule-no-vulnerable-javascript-libraries": "3.3.0",
+    "@sonarwhal/rule-ssllabs": "3.0.3",
+    "@sonarwhal/rule-strict-transport-security": "3.0.2",
+    "@sonarwhal/rule-validate-set-cookie-header": "3.0.2",
+    "@sonarwhal/rule-x-content-type-options": "3.0.3",
     "babel-eslint": "8.1.2",
+    "babel-polyfill": "6.26.0",
+    "eslint": "4.15.0",
     "eslint-plugin-import": "2.8.0",
+    "htmlhint": "0.9.13",
     "sass-lint": "1.12.1",
-    "sonarwhal": "0.21.0",
-    "eslint": "4.15.0"
+    "sonarwhal": "1.9.1"
   }
 }

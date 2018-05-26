@@ -1,4 +1,5 @@
 // import fs from 'fs';
+import 'babel-polyfill';
 import path from 'path';
 // import * as http from 'http';
 import express from 'express';

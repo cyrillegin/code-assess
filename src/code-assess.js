@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 'strict';
+// import 'babel-polyfill';
 import fs from 'fs';
 import {exec} from 'child_process';
 
@@ -105,7 +106,7 @@ function sonarwhal(location) {
   // const rc = loadConfig('.sonarwhalrc', config);
   const test = loadTest('sonarwhal');
   return new Promise((resolve, reject) => {
-    exec(`./${test} ${location}`, (err, stdout, stderr) => {
+    exec(`babel-node ${test} ${location}`, (err, stdout, stderr) => {
       if (err) {
         console.log('Errors from Sonarwhal');
         console.log(err);
@@ -161,7 +162,7 @@ async function main(location) {
     console.log('Error parsing code-assessrc.json file.');
     throw err;
   }
-  let errors = [];
+  const errors = [];
   if (options.eslint !== undefined && options.eslint.run) {
     errors.push(await eslint(location));
   }

@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import {assert} from 'chai';
 import {flake8} from './../src/code-assess';
 

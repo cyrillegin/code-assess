@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import {assert} from 'chai';
 import {scsslint} from './../src/code-assess';
 

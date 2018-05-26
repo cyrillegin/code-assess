@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import {assert} from 'chai';
 import {htmlhint} from './../src/code-assess';
 
