@@ -8,7 +8,8 @@ Code Assess
 
 ## Installation
 `npm i -D code-assess` 
-Optional: Add a .code-assessrc.json file to your root folder. This is where you can set up which linters and tests you would like to run. Although all of the tests come with preconfigured rc files, you can choose to add your own in your root directory and those will take precendence over the default configs.
+Optional: Add a .code-assessrc.json file to your root folder. This is where you can set up which linters and tests you would like to run. Although all of the tests come with preconfigured rc files, you can choose to add your own in your root directory and those will take precendence over the default configs. 
+Note: due to sudo access being droped in npm for dependencies, you need to install Sonarwhal yourself: `npm i sonarwhal`
 
 ## Usage
 The easiest way to get up and running is adding: `"assess": "babel-node node_modules/.bin/code-assess src"` to your pacakge.json file. You can then run `npm run assess`

@@ -6,6 +6,10 @@ import {startServer, stopServer} from './server/server';
 describe('Sonarwhal tests', () => {
 
   it('should run sonarwhal.', async () => {
+    if (process.env.CI === 'true') {
+      console.log('skipping sonarwhal test in travis');
+      return;
+    }
     startServer('index_success.html', 4444);
     const err = await sonarwhal('localhost:4444');
     await stopServer();
@@ -13,6 +17,10 @@ describe('Sonarwhal tests', () => {
   }).timeout(150000);
 
   it('should run sonarwhal and throw an error.', async () => {
+    if (process.env.CI === 'true') {
+      console.log('skipping sonarwhal test in travis');
+      return;
+    }
     startServer('index_fail.html', 4443);
     const err = await sonarwhal('localhost:4443');
     await stopServer();
