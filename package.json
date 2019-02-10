@@ -80,8 +80,8 @@
     "@sonarwhal/rule-x-content-type-options": "4.0.0",
     "babel-eslint": "10.0.1",
     "babel-polyfill": "6.26.0",
-    "eslint": "5.8.0",
-    "eslint-plugin-import": "2.14.0",
+    "eslint": "5.13.0",
+    "eslint-plugin-import": "2.16.0",
     "htmlhint": "0.10.1",
     "sass-lint": "1.12.1"
   },
